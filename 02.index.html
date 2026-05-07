@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>微笑向前走 | 日常.酸鹼</title>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    <style>
+        :root {
+            --bg-body-color: #E6F2FF;
+            --bg-container-color: #FFFFFF;
+            --color-black: #111111;
+            --color-light-gray: #E0E0E0;
+            --color-border: #B3D8FF;
+            --color-red-btn: #E63946;
+            --color-red-btn-shadow: #A8202D;
+            --font-main: 'Arial', 'Microsoft JhengHei', 'PingFang TC', 'Heiti TC', sans-serif;
+            --header-height: 110px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: var(--font-main); background-color: var(--bg-body-color); color: var(--color-black); line-height: 1.6; }
+        .wrapper { max-width: 1280px; margin: 0 auto; background-color: var(--bg-container-color); border-left: 3px solid var(--color-border); border-right: 3px solid var(--color-border); box-shadow: 0 0 20px rgba(0,0,0,0.05); min-height: 100vh; display: flex; flex-direction: column; }
+        header { position: sticky; top: 0; background-color: rgba(255,255,255,0.98); height: var(--header-height); display: flex; align-items: center; padding: 0 30px; border-bottom: 2px solid var(--color-light-gray); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .header-left { display: flex; align-items: center; }
+        .geo-logo { width: 55px; height: 55px; background-color: var(--color-black); position: relative; flex-shrink: 0; margin-right: 25px; }
+        .geo-logo::before, .geo-logo::after { content: ''; position: absolute; background-color: var(--bg-container-color); width: 30%; height: 30%; }
+        .geo-logo::before { top: 15%; left: 15%; }
+        .geo-logo::after { bottom: 15%; right: 15%; }
+        .slogan-box { display: flex; flex-direction: column; justify-content: center; text-align: center; border-left: 2px solid var(--color-light-gray); padding-left: 20px; margin-right: 30px; }
+        .slogan-top { font-size: 1.0rem; font-weight: bold; border-bottom: 1px solid var(--color-light-gray); padding-bottom: 3px; margin-bottom: 3px; }
+        .slogan-bottom { font-family: 'Arial', sans-serif; font-size: 0.8rem; letter-spacing: 0.5px; }
+        .header-title { flex-grow: 1; text-align: center; font-size: 2rem; font-weight: bold; color: var(--color-black); }
+        nav ul { list-style: none; display: flex; justify-content: flex-end; }
+        nav a { text-decoration: none; color: var(--color-black); font-weight: bold; font-size: 0.95rem; padding: 6px 14px; border: 2px solid var(--color-black); border-radius: 4px; transition: all 0.3s; }
+        nav a:hover { background-color: var(--color-black); color: var(--bg-container-color); }
+        main { flex-grow: 1; position: relative; margin: 20px 30px; }
+        @media (min-width: 992px) {
+            main { display: block; }
+            .col-b { margin-left: 50%; padding-left: 20px; display: flex; flex-direction: column; gap: 30px; }
+            .col-a { position: absolute; top: 0; bottom: 0; left: 0; width: 50%; overflow-y: auto; padding-right: 20px; border-right: 2px solid var(--color-light-gray); }
+        }
+        @media (max-width: 991px) {
+            main { display: flex; flex-direction: column; gap: 30px; }
+            .col-a { max-height: 500px; overflow-y: auto; padding-right: 10px; border-bottom: 2px solid var(--color-light-gray); padding-bottom: 20px; }
+            .header-title { font-size: 1.5rem; }
+            header { padding: 0 15px; }
+            .slogan-box { margin-right: 10px; padding-left: 10px; }
+        }
+        .content-card { background-color: #FAFAFA; border: 1px solid var(--color-light-gray); border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .b1-roulette { text-align: center; background-color: #F0FAF0; border-color: #C8E6C9; }
+        .b1-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; color: #2E7D32; }
+        .roulette-wrapper { position: relative; width: 260px; height: 260px; margin: 0 auto 20px auto; }
+        .pointer { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 25px solid var(--color-red-btn); z-index: 10; }
+        .wheel { width: 100%; height: 100%; border-radius: 50%; border: 5px solid white; box-shadow: 0 5px 15px rgba(0,0,0,0.1); overflow: hidden; position: relative; transition: transform 4s cubic-bezier(0.17,0.67,0.1,1); background: conic-gradient(#A5D6A7 0 60deg, #81C784 60deg 120deg, #66BB6A 120deg 180deg, #4CAF50 180deg 240deg, #43A047 240deg 300deg, #388E3C 300deg 360deg); }
+        .wheel-label { position: absolute; top: 0; left: 50%; width: 30px; height: 50%; margin-left: -15px; transform-origin: bottom center; text-align: center; padding-top: 20px; font-weight: bold; color: white; font-size: 1.1rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .btn-3d-red { display: inline-block; background: linear-gradient(to bottom, var(--color-red-btn), #C8102E); color: white; font-size: 1.2rem; font-weight: bold; text-align: center; text-decoration: none; padding: 12px 30px; border-radius: 8px; border: none; cursor: pointer; box-shadow: 0 6px 0 var(--color-red-btn-shadow), 0 10px 15px rgba(0,0,0,0.2); transition: all 0.1s; width: 100%; }
+        .btn-3d-red:active { transform: translateY(6px); box-shadow: 0 0px 0 var(--color-red-btn-shadow), 0 2px 5px rgba(0,0,0,0.2); }
+        #spin-result { margin-top: 15px; font-size: 1.2rem; font-weight: bold; color: var(--color-black); height: 30px; }
+        .b2-dm img { width: 100%; height: auto; border-radius: 4px; display: block; }
+        .markdown-body h1, .markdown-body h2, .markdown-body h3 { margin-bottom: 10px; margin-top: 20px; }
+        .markdown-body p { margin-bottom: 15px; line-height: 1.8; text-align: justify; }
+        article { margin: 20px 30px; padding: 20px 0; border-top: 2px solid var(--color-light-gray); }
+        .article-a-nav { display: flex; justify-content: center; gap: 20px; margin-bottom: 30px; }
+        .article-a-nav a { text-decoration: none; color: var(--bg-container-color); background-color: var(--color-black); padding: 10px 25px; border-radius: 20px; font-weight: bold; transition: opacity 0.3s; }
+        .article-a-nav a:hover { opacity: 0.8; }
+        .article-b-motto { text-align: center; color: var(--color-black); font-size: 0.95rem; font-weight: bold; letter-spacing: 2px; }
+        footer { background-color: var(--color-light-gray); text-align: center; padding: 30px 20px; font-size: 0.9rem; margin-top: auto; }
+        footer p { margin-bottom: 10px; }
+        footer a { color: var(--color-black); font-weight: bold; text-decoration: underline; }
+        #hidden-dashboard { display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; background-color: rgba(30,30,30,0.95); color: #00FF00; padding: 20px; border-radius: 8px; border: 1px solid #00FF00; box-shadow: 0 0 20px rgba(0,0,0,0.5); z-index: 9999; font-family: monospace; }
+        #hidden-dashboard h3 { margin-bottom: 15px; border-bottom: 1px dashed #00FF00; padding-bottom: 5px; }
+        .dashboard-item { margin-bottom: 10px; display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header id="header-section">
+        <div class="header-left">
+            <div class="geo-logo"></div>
+            <div class="slogan-box">
+                <div class="slogan-top">《日常.酸鹼》</div>
+                <div class="slogan-bottom">pH | imBalance</div>
+            </div>
+        </div>
+        <div class="header-title">微笑向前走</div>
+        <nav>
+            <ul>
+                <li><a href="#cta-meeting">與我會議</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main id="main-section">
+        <section class="col-a" id="reading-area">
+            <div class="markdown-body">
+                <!-- [21] Joke.021 -->
+<h1>股市怎麼預測漲跌 ?</h1>
+<p>技術分析 : 我會先觀察兔子生小孩的數學公式，然後得出黃金比例，再去產生交易策略 !</p>
+<p>觀相大師 : 需要融合星座、八字、紫微斗數 ...</p>
+<p>神經病 : Always Buy &amp; Hold</p>
+<p>資料數據蒐集狂 : 人類有史以來的數據，我都要拿給超級電腦分析 !</p>
+<p>要不找因果；要不找出相關連性；要不就是自己人工閱讀 !</p>
+<p>川普：啥？</p>
+<hr />
+<!-- [22] Joke.022 -->
+<h1>箭靶神(笑林廣記)</h1>
+<p>有一敗將，倉促逃命，幾至絕境時</p>
+<p>乎有天兵天將，協助退散追兵，武將感謝萬分</p>
+<p>遂叩頭問曰 : 請問天尊是誰 ?</p>
+<p>天尊回曰 : 我是箭靶神</p>
+<p>武將再問 : 吾輩何德何能，可獲箭靶神相助 ?</p>
+<p>箭靶神 : 因為你平常在操場上，都沒有傷害過我 !</p>
+<hr />
+<!-- [23] Joke.023 -->
+<h1>新手交易常識</h1>
+<p>施主 : 做空被軋然後破底被套，真難受阿 !</p>
+<p>大師 : 收盤後在來 !</p>
+<p>施主 : 大師的意思是，身為投機客，就要忍受價格波動，面對市場蹂躪 ?</p>
+<p>大師 : 盤中勿擾我下單 !!</p>
+<hr />
+<!-- [24] Joke.024 -->
+<h1>太難了 !</h1>
+<p>某日我在誠徵業務員時，因為真的找不到適合的人，所以我破例約了資工系、數學系、社工系的大學生，面試題目是 : 請你由1數到10就好 !!</p>
+<p>資工 : 0001、0002、...</p>
+<p>數學 : 定義a(n)是一個數列，令 a(0)=0，那麼 a(n+1)=a(n)+1</p>
+<p>社工 : 1、2、...、9、10、J、Q、K</p>
+<p>***********************************************************</p>
+<p>次日，找不到業務員，實在是受不了，</p>
+<p>換一個面試題目吧，甚麼是整數 ?</p>
+<p>普通人 : 10、100、1000</p>
+<p>菜販 : 99、199、999</p>
+<p>數學 : 圓周率、根號2、e</p>
+<p>客服 : 0204</p>
+<p>百貨公司 : 11、111、1212</p>
+<p>候選人 : 52.9%</p>
+<p>貨車司機 : 90/110 </p>
+<p>Excel : 65536</p>
+<p>水電 : ?</p>
+<p>木工 : 3尺</p>
+<hr />
+<!-- [25] Joke.025 -->
+<h1>黃色，但不黃</h1>
+<p>有天老公去爬山亂尿尿，雞雞被蜜蜂叮咬!!</p>
+<p>稍微退腫後，老婆迫不及待的抓來使用</p>
+<p>事畢，老婆淚流滿面做一門聯</p>
+<p>結婚滿滿三十年，只有今天像過年</p>
+<p>一夕長大真是甜，我愛蜜蜂一萬年</p>
+<p>橫批 : 他日要找虎頭蜂 !</p>
+<hr />
+<!-- [26] Joke.026 -->
+<h1>論債券的交易風格 !</h1>
+<p>操作的心態與策略只有兩大類</p>
+<p>一種是死掉的多頭</p>
+<p>另一種是死不掉的多頭</p>
+<hr />
+<!-- [27] Joke.027 -->
+<h1>中文字的博大精深 !</h1>
+<p>1. 貞女與浪女的差別</p>
+<p>一個是不給你睡；另一個是不給你睡</p>
+<p>2. 資優生與臨時抱佛腳的差別</p>
+<p>我看完了；另一個是我看完了</p>
+<p>3. 慈濟與色狼的差別</p>
+<p>我愛上人；另一個是我愛上人</p>
+<hr />
+<!-- [28] Joke.028 -->
+<p>測驗 : 手機分離焦慮症程度  </p>
+<p>1.手機不在身邊，會慌張失措、無法專心做事<br />
+2.手機不能關靜音、不震動、不閃光<br />
+3.隨時關心手機的電量、一有機會就要充電<br />
+4.訊號收不到的地方，會心煩、會緊張<br />
+5.漫無目的地刷手機，不知不覺就渡過一小時<br />
+6.影片片頭儘量跳過、使用加速功能、先看結尾<br />
+7.超過300字的po文，會懶得閱讀；偏好懶人包<br />
+8.無意識地拿起手機，檢查是否有新訊息<br />
+9.與人面對面時，也會拿出自己的手機看一下<br />
+10.每天平均使用手機時間超過2.5小時  </p>
+<p>3~5分 : 輕度焦慮<br />
+6~8分 : 中度焦慮<br />
+9~10分 : 重度焦慮</p>
+<hr />
+<blockquote>
+<p>⚠️ 轉換警告：<br />
+[warning] Unrecognised run style: 標題 1 字元 (Style ID: 10)</p>
+</blockquote>
+<hr />
+<!-- [29] Joke.029 -->
+<h1>股票市場噴漲時...</h1>
+<p>客戶 : 你們家的三竹下單系統又壞了啦....</p>
+<p>營業員 : 抱歉、抱歉，請問是哪邊故障，我趕緊去資訊部反映</p>
+<p>客戶 : 空單賣出鍵，不能用 !!</p>
+<p>營業員 : 靠么 !! 全市場的空單鑑都壞了啦，不是我家的系統有問題 !!</p>
+<hr />
+<!-- [30] Joke.030 -->
+<h1>哪個說法表示最糟糕的情況?</h1>
+<p>A. 壞了、壞了，這下可壞了 !</p>
+<p>B. 壞了、壞了，這下可好了 !</p>
+<p>C. 好了、好了，這下可壞了 !</p>
+<p>D. 好了、好了，這下可好了 !</p>
+<hr />
+<!-- [31] Joke.031 -->
+<h1>(笑林廣記)</h1>
+<p>有一善者，閻王許他來生可以當個富人</p>
+<p>善者回曰 : 來生只願衣食無缺、有茶可飲、生活無是無非，悠哉過日即可 !</p>
+<p>閻王 : 銀子可以多給，如此清福，不可享 !!</p>
+<hr />
+<!-- [32] Joke.032 -->
+<h1>火雲邪神的疑惑</h1>
+<p>火 : 你的屁聲為何如此大 ?</p>
+<p>獅 : 因為穿了喇叭褲 !</p>
+<hr />
+<!-- [33] Joke.033 -->
+<h1>萬用金句</h1>
+<p>科學、預測、分析、!@#$%...的盡頭，是玄學 !!</p>
+<hr />
+<!-- [34] Joke.034 -->
+<h1>這樣是亂發問嗎 ?</h1>
+<p>法官 : 你是如何在不破壞門鎖的情況下，進入屋內 ?</p>
+<p>小偷 : 靜默</p>
+<p>法官 : 你是如何避開高科技監視鏡頭，穿越走廊 ?</p>
+<p>小偷 : 靜默</p>
+<p>法官 : 你是如何快速打開科技保險櫃，而不觸動時間警報裝置 ?</p>
+<p>小偷 : 現金贓物你不問，這些技術問題有啥好問的 ? 你要轉行嗎 ?</p>
+<hr />
+<!-- [35] Joke.035 -->
+<h1>就是要亂發問 !</h1>
+<p>面試官 : 假設你錄取變成正式員工後，在工作與感情上有衝突，你怎麼選 ?</p>
+<p>男子 : 那要看當時的女朋友是否為正妹，是正妹的話，我得選擇工作</p>
+<p>面試官 : ??? 為何 ???</p>
+<p>男子 : 公司付給我的薪資，養不起正妹，我只能放棄她 !!</p>
+<hr />
+<!-- [36] Joke.036 -->
+<h1>為什麼會套牢 ?</h1>
+<p>富翁即將不久於人世，於是把兒子叫到病床邊</p>
+<p>富翁：「如果你在街上看到協尋愛犬啟事，懸賞10萬 !! 你會怎麼做？」</p>
+<p>兒子：「先在心裡計算找狗所要付出的時間和成本，如果小於10萬，就在附近積極尋找那條狗。」</p>
+<p>富翁：「如果是我，就照著尋狗啟事上的照片，找一隻相似的狗，只要成本夠低，用買的也不要緊。」</p>
+<p>兒子：「不管用啊，人家是找寵物，有感情的，找一隻假的給主人，一下子就會被認出來了。」</p>
+<p>富翁：「我會帶著我找到的那隻狗，到告示牌附近閒晃，我相信不久就會有人用兩、三萬元買下它的。」</p>
+<p>兒子：「我懂了，您是要告訴我，只要重複這個步驟幾次，就可以賺得比10萬元還多？」</p>
+<p>富翁 :「我是要告訴你，那張尋狗啟事也是我貼的，而且那隻狗根本不存在，照片也是AI生成的。」</p>
+<hr />
+<!-- [37] Joke.037 -->
+<h1>真的純友誼</h1>
+<p>甲女 : 男女之間沒有純友誼 !</p>
+<p>乙女 : 我爸、我媽目前就是純友誼狀態 !</p>
+<hr />
+<!-- [38] Joke.038 -->
+<h1>進入股市後...</h1>
+<p>我目前有百萬資產的身價 !</p>
+<p>但我懷念以前有千萬資產的身價 !!</p>
+<hr />
+<!-- [39] Joke.039 -->
+<h1>反詐騙</h1>
+<p>詐騙 : 這裡是**銀行客服中心，您剛剛在泰國使用信用卡，消費了150萬泰銖 !</p>
+<p>我 : 是的，我買了一頭可愛的大象，怎麼了嗎 ?</p>
+<hr />
+<!-- [40] Joke.040 -->
+<h1>不是唬爛</h1>
+<p>未婚男子罹癌機會比同齡男子高出67%、比離婚的男子高出79%</p>
+<p>未婚女子的差距會更大，來到85%與94% !!</p>
+<p>在口腔癌、肛門癌、子宮頸癌、攝護腺癌的特殊部位，則是全體的6~9倍 !</p>
+<p>請問這個統計方法哪裡出錯了 ?</p>
+            </div>
+        </section>
+        <section class="col-b" id="interaction-area">
+            <div class="content-card b1-roulette">
+                <div class="b1-title">今天的下午茶沒有選擇障礙</div>
+                <div class="roulette-wrapper">
+                    <div class="pointer"></div>
+                    <div class="wheel" id="roulette-wheel">
+                        <div class="wheel-label" style="transform: rotate(30deg);">阿里山</div>
+                        <div class="wheel-label" style="transform: rotate(90deg);">鐵觀音</div>
+                        <div class="wheel-label" style="transform: rotate(150deg);">包種</div>
+                        <div class="wheel-label" style="transform: rotate(210deg);">凍頂</div>
+                        <div class="wheel-label" style="transform: rotate(270deg);">龍井</div>
+                        <div class="wheel-label" style="transform: rotate(330deg);">日月潭</div>
+                    </div>
+                </div>
+                <button class="btn-3d-red" id="spin-btn">轉動輪盤</button>
+                <div id="spin-result">等待旋轉...</div>
+            </div>
+            <div class="content-card b2-dm">
+                <img src="https://placehold.co/800x600/EEEEEE/999999?text=Insert+DM+Image+Here" alt="產品 DM 展示">
+            </div>
+            <div class="b3-cta" id="cta-meeting">
+                <a href="#" class="btn-3d-red">預約與我會議</a>
+            </div>
+            <div class="content-card markdown-body b4-product">
+                <h3>重點產品說明</h3><p>本區塊支援 SQLite 資料庫傳入的 Markdown 語法。</p>
+            </div>
+        </section>
+    </main>
+    <article id="article-section">
+        
+        <div class="article-a-nav">
+            <a href="#">上一頁</a>
+            <a href="#">下一頁</a>
+        </div>
+        
+        <div class="article-b-motto">剪除多餘、精煉最愛；簡約開始、然後更多</div>
+    </article>
+    <footer id="footer-section">
+        <p>飛魚整合行銷工作室 | 新北市新店區北新路一段64巷11號四樓 | <a href="mailto:contact@example.com">與我聯繫</a></p>
+        <p>&copy; 2026 飛魚整合行銷工作室 版權所有</p>
+    </footer>
+</div>
+<div id="hidden-dashboard">
+    <h3>📊 GA4 模擬瀏覽數據面板</h3>
+    <div class="dashboard-item"><span>目前在線人數:</span> <span id="online-users">12</span></div>
+    <div class="dashboard-item"><span>輪盤點擊次數:</span> <span id="roulette-clicks">0</span></div>
+    <div class="dashboard-item"><span>A區閱讀深度:</span> <span id="scroll-depth">0%</span></div>
+    <div style="margin-top:15px;font-size:0.8rem;color:#888;">按下 ESC 關閉面板</div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const spinBtn = document.getElementById('spin-btn');
+        const wheel = document.getElementById('roulette-wheel');
+        const resultText = document.getElementById('spin-result');
+        const clickCounterNode = document.getElementById('roulette-clicks');
+        const slices = ["阿里山","鐵觀音","包種","凍頂","龍井","日月潭"];
+        let currentDegree = 0, rouletteClicks = 0, isSpinning = false;
+        spinBtn.addEventListener('click', () => {
+            if(isSpinning) return;
+            isSpinning = true; rouletteClicks++;
+            clickCounterNode.textContent = rouletteClicks;
+            resultText.textContent = "旋轉中...";
+            const totalDegree = currentDegree + (5 + Math.floor(Math.random()*5))*360 + Math.floor(Math.random()*360);
+            wheel.style.transform = `rotate(${totalDegree}deg)`;
+            setTimeout(() => {
+                const sliceIndex = Math.floor(((360 - totalDegree % 360) % 360) / 60);
+                resultText.textContent = `結果：${slices[sliceIndex]}！`;
+                currentDegree = totalDegree; isSpinning = false;
+            }, 4000);
+        });
+        const dashboard = document.getElementById('hidden-dashboard');
+        window.addEventListener('keydown', (e) => {
+            if(e.ctrlKey && e.shiftKey && e.key.toLowerCase()==='d'){ e.preventDefault(); dashboard.style.display = dashboard.style.display==='block'?'none':'block'; }
+            if(e.key==='Escape' && dashboard.style.display==='block') dashboard.style.display='none';
+        });
+        const colA = document.getElementById('reading-area');
+        const scrollDepthNode = document.getElementById('scroll-depth');
+        if(colA){ colA.addEventListener('scroll', () => { const h = colA.scrollHeight - colA.clientHeight; if(h>0) scrollDepthNode.textContent = Math.round(colA.scrollTop/h*100)+'%'; }); }
+    });
+</script>
+</body>
+</html>
