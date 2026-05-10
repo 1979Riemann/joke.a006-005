@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>超密度空間</title>
+  <meta name="description" content="笑話大補帖、悠哉生活、來杯茶"/>
+  <style>
+  /* ═══════════════════════════════════════════════
+     CSS 變數
+  ═══════════════════════════════════════════════ */
+  :root{
+    --sky:       #e4f2fb;
+    --sky-mid:   #c2dff2;
+    --sky-deep:  #93c4e8;
+    --azure:     #3a8fc7;
+    --azure-dk:  #1e5f8a;
+    --white:     #ffffff;
+    --offwhite:  #f6fafd;
+    --g100:      #eef2f6;
+    --g200:      #d8e2ec;
+    --g400:      #94a8bb;
+    --g600:      #546070;
+    --ink:       #0e1417;
+    --grn1:      #14501e;
+    --grn2:      #1e6b2e;
+    --grn3:      #288040;
+    --grn4:      #359654;
+    --grn5:      #46b06a;
+    --grn6:      #64c882;
+    --red:       #cc1f1f;
+    --red-dk:    #650000;
+    --max-w:     1080px;
+    --hdr-h:     68px;
+    --r:         8px;
+    --r-sm:      5px;
+    --sh:        0 2px 14px rgba(40,110,180,.13);
+    --font:      "Microsoft JhengHei","PingFang TC","Heiti TC",Arial,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font);
+    background:var(--sky);
+    color:var(--ink);
+    min-height:100vh;
+    background-image:linear-gradient(90deg,
+      var(--sky-mid) 0 calc(50% - 542px),
+      var(--white)   calc(50% - 542px) calc(50% - 540px),
+      transparent    calc(50% - 540px) calc(50% + 540px),
+      var(--white)   calc(50% + 540px) calc(50% + 542px),
+      var(--sky-mid) calc(50% + 542px) 100%);
+  }
+  a{color:var(--azure);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .shell{
+    max-width:var(--max-w);margin:0 auto;
+    background:var(--white);
+    border-left:2px solid var(--sky-deep);
+    border-right:2px solid var(--sky-deep);
+    min-height:100vh;position:relative;z-index:1;
+  }
+
+  /* ─────────────────── HEADER ─────────────────── */
+  header{
+    position:sticky;top:0;z-index:800;
+    height:var(--hdr-h);
+    background:var(--white);
+    border-bottom:2px solid var(--sky-deep);
+    box-shadow:var(--sh);
+  }
+  .hdr{
+    max-width:var(--max-w);margin:0 auto;
+    height:100%;display:flex;align-items:center;
+    padding:0 18px;
+  }
+
+  /* (一) Logo */
+  .logo-area{
+    flex-shrink:0;
+    width:clamp(32px,8vw,52px);      /* 390px(iPhone)→31≈32px；桌機→52px */
+    height:clamp(32px,8vw,52px);
+    margin-right:clamp(6px,1.6vw,18px);
+  }
+  .logo-area a,.logo-area>div{display:block;width:100%;height:100%}
+
+  /* Logo 1：黑底對角白方塊 */
+  .logo-1{
+    width:100%;height:100%;
+    background:#111;
+    position:relative;image-rendering:pixelated;
+  }
+  .logo-1::before,.logo-1::after{
+    content:'';position:absolute;
+    width:30%;height:30%;background:#fff;
+  }
+  .logo-1::before{top:11%;left:11%}
+  .logo-1::after{bottom:11%;right:11%}
+
+  /* (二) Slogan */
+  .slogan-area{
+    flex-shrink:0;
+    display:flex;flex-direction:column;align-items:center;
+    padding-left:clamp(5px,1.3vw,18px);
+    padding-right:clamp(5px,1.3vw,18px);
+    border-left:1.5px solid var(--g200);
+    min-width:clamp(70px,19vw,142px);  /* 390px→74px；桌機→142px */
+  }
+  .sl-top{
+    font-size:clamp(.56rem,1.8vw + .18rem,.98rem);  /* 390px≈.62rem */
+    font-weight:700;color:var(--ink);
+    letter-spacing:.02em;text-align:center;
+    padding-bottom:3px;width:100%;
+  }
+  .sl-div{width:76%;height:1px;background:var(--g200);margin:0 auto 3px}
+  .sl-bot{
+    font-family:Arial,sans-serif;
+    font-size:clamp(.46rem,1.2vw + .15rem,.72rem);  /* 390px≈.52rem */
+    font-weight:400;color:var(--g600);
+    letter-spacing:.08em;text-align:center;
+  }
+
+  /* (三) Title */
+  .title-area{
+    flex:1;min-width:0;text-align:center;   /* min-width:0 防止 flex 子項撐爆 */
+    padding:0 clamp(4px,1vw,18px);
+  }
+  .title-area h1{
+    font-size:clamp(.78rem,2.6vw + .28rem,1.52rem);  /* 390px≈.91rem */
+    font-weight:900;color:var(--ink);
+    letter-spacing:.06em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
+  /* (四) Nav */
+  .hdr-nav{flex-shrink:0;margin-left:auto}
+  .hdr-nav a{
+    display:inline-block;font-size:.83rem;font-weight:700;
+    color:var(--azure-dk);padding:5px 15px;
+    border:2px solid var(--sky-deep);border-radius:20px;
+    background:var(--sky);letter-spacing:.05em;
+    transition:background .2s,color .2s,border-color .2s;white-space:nowrap;
+  }
+  .hdr-nav a:hover{
+    background:var(--azure);color:var(--white);
+    border-color:var(--azure);text-decoration:none;
+  }
+  @media(max-width:600px){.hdr-nav{display:none}}
+  /* 手機版（≤480px）：縮小 header 高度，收起 Slogan 分隔線 */
+  @media(max-width:480px){
+    :root{ --hdr-h:56px; }
+    .sl-div{ display:none; }
+  }
+  /* 極小螢幕（≤320px）才完全隱藏 Slogan */
+  @media(max-width:320px){ .slogan-area{ display:none } }
+
+  /* ─────────────────── A欄錨點側條（右側） ─────────────────── */
+  .anchor-rail{
+    position:absolute;
+    right:-34px;
+    top:50%;transform:translateY(-50%);
+    display:flex;flex-direction:column;gap:10px;
+    z-index:200;
+  }
+  .anchor-rail a{
+    display:flex;align-items:center;justify-content:center;
+    width:26px;height:26px;
+    background:var(--sky-mid);border:1.5px solid var(--sky-deep);
+    border-radius:50%;
+    font-size:.58rem;font-weight:700;color:var(--azure-dk);
+    transition:background .2s,color .2s;box-shadow:var(--sh);
+    text-decoration:none;
+  }
+  .anchor-rail a:hover{
+    background:var(--azure);color:var(--white);text-decoration:none;
+  }
+  @media(max-width:800px){.anchor-rail{display:none}}
+
+  /* ─────────────────── MAIN ─────────────────── */
+  main{padding:22px 16px 26px}
+  .main-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;align-items:start;
+  }
+  /* A、B 欄頂部對齊：兩欄都從同一高度開始 */
+  #col-a, #col-b{ align-self:start; }
+  @media(max-width:720px){.main-grid{grid-template-columns:1fr}}
+
+  /* A 欄 */
+  #col-a{
+    background:var(--offwhite);
+    border:1.5px solid var(--sky-deep);
+    border-radius:var(--r);
+    padding:22px 20px;
+    min-height:320px;        /* 響應式最小高度保底 */
+    overflow-y:auto;
+    position:relative;
+  }
+
+  /* Markdown 排版 */
+  .md-feed{line-height:1.95}
+  .md-entry{padding-bottom:24px;margin-bottom:24px;border-bottom:1px dashed var(--g200)}
+  .md-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .md-no{
+    display:inline-block;font-family:Arial,sans-serif;
+    font-size:.6rem;font-weight:700;
+    color:var(--white);background:var(--azure);
+    padding:2px 8px;border-radius:20px;
+    letter-spacing:.1em;margin-bottom:7px;
+  }
+  .md-entry h2{
+    font-size:1.05rem;font-weight:800;color:var(--ink);
+    margin-bottom:8px;padding-left:10px;
+    border-left:4px solid var(--azure);line-height:1.5;
+  }
+  .md-entry h3{font-size:.92rem;font-weight:700;color:var(--g600);margin:11px 0 5px}
+  .md-entry p{font-size:.88rem;color:#2c3940;margin-bottom:8px}
+  .md-entry ul,.md-entry ol{padding-left:1.5em;margin-bottom:8px}
+  .md-entry li{font-size:.87rem;margin-bottom:3px}
+  .md-entry blockquote{
+    background:var(--sky);border-left:3px solid var(--azure);
+    border-radius:0 var(--r-sm) var(--r-sm) 0;
+    padding:8px 13px;margin:9px 0;
+    font-style:italic;color:var(--g600);font-size:.86rem;
+  }
+  .md-entry code{
+    font-family:"Courier New",monospace;font-size:.82rem;
+    background:var(--sky-mid);border:1px solid var(--sky-deep);
+    border-radius:3px;padding:1px 5px;
+  }
+  .md-entry strong{color:var(--ink)}
+
+  /* B 欄 */
+  #col-b{display:flex;flex-direction:column;gap:13px}
+
+  .b-card{
+    background:var(--white);
+    border-radius:var(--r);padding:13px 14px 15px;
+    /* 外框與微陰影全部移除 */
+  }
+  .b-lbl{
+    font-size:.65rem;font-weight:800;color:var(--azure-dk);
+    letter-spacing:.14em;
+    margin-bottom:9px;padding-bottom:6px;
+    border-bottom:1px solid var(--sky-mid);
+  }
+
+  /* B1 輪盤 */
+  /* 頂列：標題 + 按鈕 + 結果 水平並排 */
+  .spin-bar{
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:8px;padding-bottom:6px;
+    border-bottom:1px solid var(--sky-mid);
+  }
+  .spin-bar .b-lbl-inline{
+    flex:1;margin:0;padding:0;
+    /* 響應式：小卡片時仍可讀 */
+    font-size:clamp(.6rem,.5vw + .45rem,.85rem);
+    font-weight:800;color:var(--azure-dk);letter-spacing:.1em;
+  }
+  .btn-spin{
+    flex-shrink:0;
+    padding:5px 12px;
+    font-family:var(--font);font-size:.75rem;font-weight:800;
+    letter-spacing:.06em;color:#fff;cursor:pointer;border:none;
+    border-radius:var(--r-sm);
+    background:linear-gradient(180deg,#ff5252 0%,#cc1f1f 48%,#9a0000 100%);
+    box-shadow:0 3px 0 var(--red-dk),0 5px 12px rgba(140,0,0,.32),
+               inset 0 1px 0 rgba(255,255,255,.25);
+    transition:transform .08s,box-shadow .08s;white-space:nowrap;
+  }
+  .btn-spin:hover{background:linear-gradient(180deg,#ff6666 0%,#df2020 48%,#aa0000 100%)}
+  .btn-spin:active{
+    transform:translateY(3px);
+    box-shadow:0 0 0 var(--red-dk),0 2px 5px rgba(140,0,0,.24),
+               inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .spin-out{
+    flex-shrink:0;min-width:72px;
+    font-size:.82rem;font-weight:700;
+    color:var(--grn1);text-align:right;letter-spacing:.03em;white-space:nowrap;
+  }
+  /* 轉盤 canvas 擴大至卡片寬度 */
+  .spin-wrap{display:block}
+  #wheel-cv{
+    display:block;width:100%;height:auto;
+    aspect-ratio:1/1;border-radius:50%;
+  }
+
+  /* B2 圖片：無標題，圖片撐滿，無說明文字 */
+  #b2.b-card{ padding:0;overflow:hidden; }
+  .dm-img{
+    width:100%;display:block;
+    border-radius:var(--r);
+    object-fit:cover;
+  }
+  .dm-ph{
+    width:100%;height:160px;
+    background:linear-gradient(135deg,var(--sky-mid),var(--sky),#f0f8ff);
+    border-radius:var(--r);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--azure);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+  }
+
+  /* B3 CTA：無標題，按鈕置中 */
+  #b3.b-card{ padding:12px 14px; }
+  .cta-area{text-align:center;padding:2px 0}
+  .btn-cta{
+    display:inline-block;width:25%;padding:10px 0;text-align:center;
+    font-family:var(--font);font-size:.94rem;font-weight:900;
+    letter-spacing:.1em;color:#fff;
+    border-radius:var(--r-sm);border:none;cursor:pointer;
+    background:linear-gradient(180deg,#ff5252 0%,#cc1f1f 48%,#9a0000 100%);
+    box-shadow:0 6px 0 var(--red-dk),0 10px 22px rgba(140,0,0,.4),
+               inset 0 1px 0 rgba(255,255,255,.28);
+    transition:transform .08s,box-shadow .08s;
+    text-decoration:none;
+  }
+  .btn-cta:hover{
+    background:linear-gradient(180deg,#ff6666 0%,#df2020 48%,#aa0000 100%);
+    color:#fff;text-decoration:none;
+  }
+  .btn-cta:active{
+    transform:translateY(5px);
+    box-shadow:0 1px 0 var(--red-dk),0 3px 8px rgba(140,0,0,.28),
+               inset 0 1px 0 rgba(255,255,255,.2);
+  }
+
+  /* B4 產品說明：無標題 */
+  #b4.b-card{ padding:12px 14px; }
+  .b4-text{font-size:.86rem;line-height:1.85;color:#2c3940}
+  .b4-text h3{font-size:.93rem;font-weight:700;margin-bottom:5px}
+  .b4-text p{margin-bottom:5px}
+  .b4-text ul{padding-left:1.3em}
+  .b4-text li{margin-bottom:3px}
+
+  /* ─────────────────── ARTICLE ─────────────────── */
+  article{
+    border-top:2px solid var(--sky-deep);
+    background:var(--g100);
+    padding:13px 24px 17px;
+  }
+  .art-nav{display:flex;justify-content:space-between;margin-bottom:11px}
+  .art-nav a{
+    font-size:.83rem;font-weight:700;color:var(--azure-dk);
+    padding:5px 14px;border:1.5px solid var(--sky-deep);
+    border-radius:20px;background:var(--white);
+    transition:background .2s,color .2s;
+  }
+  .art-nav a:hover{background:var(--azure);color:var(--white);text-decoration:none}
+  .art-nav-dis{
+    font-size:.83rem;font-weight:700;
+    color:var(--g400);
+    padding:5px 14px;border:1.5px solid var(--g200);
+    border-radius:20px;background:var(--g100);
+    cursor:default;user-select:none;
+  }
+  .art-slogan{
+    text-align:center;
+    font-size:clamp(.66rem,.55vw + .48rem,.79rem);
+    font-weight:700;color:var(--ink);
+    letter-spacing:.22em;white-space:nowrap;overflow:hidden;
+  }
+
+  /* ─────────────────── FOOTER ─────────────────── */
+  footer{
+    background:var(--ink);color:#9eb5c6;
+    padding:17px 22px;text-align:center;
+    font-size:.76rem;line-height:2;
+  }
+  .ft-c{margin-bottom:4px}
+  .ft-sep{color:var(--g400);margin:0 6px}
+  footer a{color:var(--sky-deep);transition:color .2s}
+  footer a:hover{color:var(--white);text-decoration:none}
+  .ft-d{font-size:.69rem;color:#536070}
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ══ HEADER ══ -->
+  <header id="top">
+    <div class="hdr">
+
+      <!-- (一) Logo -->
+      <div class="logo-area">
+        <a href="#top" aria-label="回首頁">
+          <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+  <defs>
+    <radialGradient id="rg0" cx="50%" cy="50%" r="50%">
+      <stop offset="0%"   stop-color="#fff"/>
+      <stop offset="100%" stop-color="#e0e0e0"/>
+    </radialGradient>
+    <radialGradient id="rg1" cx="40%" cy="38%" r="60%">
+      <stop offset="0%"   stop-color="#fff"/>
+      <stop offset="100%" stop-color="#555"/>
+    </radialGradient>
+    <radialGradient id="rg2" cx="40%" cy="38%" r="60%">
+      <stop offset="0%"   stop-color="#eee"/>
+      <stop offset="100%" stop-color="#111"/>
+    </radialGradient>
+    <radialGradient id="rg3" cx="40%" cy="38%" r="60%">
+      <stop offset="0%"   stop-color="#ddd"/>
+      <stop offset="100%" stop-color="#000"/>
+    </radialGradient>
+    <filter id="bl"><feGaussianBlur stdDeviation="1.2"/></filter>
+  </defs>
+  <rect width="60" height="60" fill="#fff"/>
+  <circle cx="30" cy="30" r="28" fill="url(#rg0)" stroke="#ccc" stroke-width=".5"/>
+  <circle cx="30" cy="30" r="22" fill="url(#rg1)" filter="url(#bl)"/>
+  <circle cx="30" cy="30" r="15" fill="url(#rg2)" filter="url(#bl)"/>
+  <circle cx="30" cy="30" r="9"  fill="url(#rg3)" filter="url(#bl)"/>
+  <circle cx="30" cy="30" r="3"  fill="#fff"/>
+  <!-- 高光點 -->
+  <circle cx="24" cy="24" r="3.5" fill="rgba(255,255,255,.55)" filter="url(#bl)"/>
+</svg>
+        </a>
+      </div>
+
+      <!-- (二) Slogan -->
+      <div class="slogan-area">
+        <div class="sl-top">《巷弄.天地》</div>
+        <div class="sl-div" role="separator"></div>
+        <div class="sl-bot">Stop | think</div>
+      </div>
+
+      <!-- (三) Title -->
+      <div class="title-area">
+        <h1>超密度空間</h1>
+      </div>
+
+      <!-- (四) Nav -->
+      <nav class="hdr-nav" aria-label="聯絡">
+        <a href="" target="_blank" rel="noopener noreferrer">與我聯絡</a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main id="sec-top">
+    <div class="main-grid">
+
+      <!-- A 區 -->
+      <section id="col-a" aria-label="文章閱讀">
+
+        <!-- 錨點側條 貼在 A 欄左側 -->
+        <nav class="anchor-rail" aria-label="文章錨點">
+          <a href="#read-1" title="第一篇">①</a>
+          <a href="#read-2" title="第二篇">②</a>
+          <a href="#read-3" title="第三篇">③</a>
+        </nav>
+        <div class="md-feed">
+          
+          <div class="md-entry" id="read-1">
+            <span class="md-no">No.1</span>
+            <h2>男&amp;女</h2>
+            <p>男 : 女人是世界上最麻煩的動物 !<br />
+女 : 男人是世界上最愛找麻煩的動物 !</p>
+          </div>
+          
+          <div class="md-entry" id="read-2">
+            <span class="md-no">No.2</span>
+            <h2>錢 &amp; 鹽的份量 !</h2>
+            <p>甲: 百般調味，不過鹽；人情世故，就是錢<br />
+乙: 百般調味，就是錢；人情世故，不過鹽</p>
+          </div>
+          
+          <div class="md-entry" id="read-3">
+            <span class="md-no">No.3</span>
+            <h2>那個比較恐怖 ?</h2>
+            <p>老闆對你說 :<br />
+1.沒事了<br />
+2.你沒事了 !<br />
+3.沒你事了 !<br />
+4.你事沒了 !</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.4</span>
+            <h2>五言絕句 !
+
+紅綠滾浪濤，漲跌擾人心</h2>
+            <p>紅綠滾浪濤，漲跌擾人心<br />
+買賣豈能嘻，耕讀待時機</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.5</span>
+            <h2>聽話 !</h2>
+            <p>兒 : 這貓咪養了三年，都還不聽我的話 !<br />
+媽 : 我養你三十年，那你有再聽嗎 ?</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.6</span>
+            <h2>你會幾種語言</h2>
+            <p>老師 : 同學們，你們會幾種語言<br />
+小英 : 我會國語、台語、英語跟阿拉伯文 !!<br />
+老師 : 那麼厲害唷 ! 你還會阿拉伯文 !!<br />
+來，在黑板上寫幾個看看<br />
+小英 : 1、2、3、4、5 ...<br />
+老師 : !@#$%</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.7</span>
+            <h2>說話 !</h2>
+            <p>老婆 : 今天有人說我長得醜 !<br />
+老公 : 男人說的這個意思是臉蛋還可以，若說你漂亮，就真的是很漂亮<br />
+老婆 : 胡說八道，那男人遇到真的很醜的女人，會怎麼說 ?<br />
+老公 : 男人不會跟這種女人說話 !!!</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.8</span>
+            <h2>共同點 !</h2>
+            <p>人世間，對髮型不滿意的人，都有一個共同點 !<br />
+就是不肯承認 : 那是臉的問題 !</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.9</span>
+            <h2>深山的和尚尼姑</h2>
+            <p>閒來無事，和尚寫了門聯<br />
+上 : 白天沒鳥事<br />
+下 : 晚上鳥沒事<br />
+橫批 : 有求必硬<br />
+尼姑看了，也寫了門聯<br />
+上 : 白天空洞洞<br />
+下 : 晚上洞空空<br />
+橫批 : 隨時候鳥<br />
+佛祖看了，這人間怎麼亂成這樣，各送一幅門聯<br />
+上 : 白天不唸經<br />
+下 : 晚上不正經<br />
+橫批 : 很快發神經</p>
+          </div>
+          
+          <div class="md-entry" >
+            <span class="md-no">No.10</span>
+            <h2>中年大叔的西遊記</h2>
+            <p>孫悟空的壓力<br />
+豬八戒的身材<br />
+沙悟淨的髮型<br />
+唐三藏的碎唸</p>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- B 欄 -->
+      <aside id="col-b" aria-label="側欄功能">
+
+        <!-- 中段錨點 -->
+        <span id="sec-mid"></span>
+
+        <!-- B1 輪盤 -->
+        <section class="b-card" id="b1">
+          <div class="spin-bar">
+            <span class="b-lbl-inline">🎡 我沒有選擇障礙</span>
+            <button class="btn-spin" id="btn-spin" type="button">轉動輪盤</button>
+            <div class="spin-out" id="spin-out" aria-live="polite">—</div>
+          </div>
+          <div class="spin-wrap">
+            <canvas id="wheel-cv" width="400" height="400" aria-label="隨機輪盤"></canvas>
+          </div>
+        </section>
+
+        <!-- B2 DM 圖片：無標題，圖片撐滿 -->
+        <section class="b-card" id="b2">
+          
+            <img class="dm-img" src="https://drive.google.com/thumbnail?id=1J85vijya4nCsHt_5ZOfLE7sIFu8HuWYs&amp;sz=w1200"
+                 alt="刊登圖片" loading="lazy"/>
+          
+        </section>
+
+        <!-- B3 CTA：無標題 -->
+        <section class="b-card" id="b3">
+          <div class="cta-area">
+            <a class="btn-cta" href="https://s.shopee.tw/7AUikk8OBQ?share_channel_code=6"
+               target="_blank" rel="noopener noreferrer">前往囉!</a>
+          </div>
+        </section>
+
+        <!-- B4 產品說明：無標題，核取方塊控制 + 有內容才顯示 -->
+        
+        <section class="b-card" id="b4">
+          <div class="b4-text"><p>公        司 : 林記茶行<br />
+名        稱 : 漫日茗心茶包&amp;原葉<br />
+統        編 : 12487436<br />
+溯源農糧產品 : 0211000228<br />
+食品登錄字號 : A202289227-00001-2<br />
+地址 : 台北市中山區松江路140巷6-1號1樓</p></div>
+        </section>
+        
+
+      </aside>
+    </div>
+  </main>
+
+  <!-- 底部錨點 -->
+  <span id="sec-bottom"></span>
+
+  <!-- ══ ARTICLE ══ -->
+  
+  <article id="article">
+    <nav class="art-nav" aria-label="分頁">
+      
+      <a href="https://1979riemann.github.io/joke.a005-005/" rel="prev" target="_blank" rel="noopener noreferrer">← 上一頁</a>
+      
+      
+      <a href="https://1979riemann.github.io/joke.a007-005/" rel="next" target="_blank" rel="noopener noreferrer">下一頁 →</a>
+      
+    </nav>
+    <section aria-label="品牌標語">
+      <p class="art-slogan">剪除多餘、精煉最愛；簡約開始、然後更多</p>
+    </section>
+  </article>
+  
+
+  <!-- ══ FOOTER ══ -->
+  <footer id="footer">
+    <p class="ft-c">
+      飛魚整合行銷工作室
+      <span class="ft-sep">|</span>
+      新北市新店區北新路一段64巷11號四樓
+      <span class="ft-sep">|</span>
+      <a href=""
+         target="_blank" rel="noopener noreferrer">與我聯繫</a>
+    </p>
+    <p class="ft-d">© 2026 版權所有　飛魚整合行銷工作室</p>
+  </footer>
+
+</div><!-- /.shell -->
+
+<script>
+/* ── 全站超連結新頁開啟 ── */
+document.querySelectorAll('a[href]').forEach(function(a){
+  var h=a.getAttribute('href');
+  if(h&&h!=='#'&&!h.startsWith('#')){
+    a.target='_blank';a.rel='noopener noreferrer';
+  }
+});
+
+/* ── A 欄高度 = B1+B2+B3+B4 垂直高度加總（含 gap），超出以捲軸呈現 ── */
+function syncH(){
+  var a  = document.getElementById('col-a');
+  var b  = document.getElementById('col-b');
+  if(!a || !b) return;
+
+  if(window.innerWidth > 720){
+    /* 先清除舊設定，讓 B 欄回彈取得真實渲染高度 */
+    a.style.height = '';
+    a.style.overflowY = '';
+
+    /* 精確加總：B 欄所有直接子 section 的 offsetHeight + gap */
+    var children = Array.from(b.children).filter(function(el){
+      return el.tagName !== 'SPAN';   /* 排除錨點 span */
+    });
+    var totalH = 0;
+    var gap = parseInt(getComputedStyle(b).gap) || 13;
+    children.forEach(function(el){ totalH += el.offsetHeight; });
+    if(children.length > 1) totalH += gap * (children.length - 1);
+
+    /* 最小高度保底（配合 CSS min-height:320px）*/
+    var minH = 320;
+    var finalH = Math.max(totalH, minH);
+
+    a.style.height    = finalH + 'px';
+    a.style.overflowY = 'auto';
+  } else {
+    /* 行動版：取消固定高度，A 欄自然展開 */
+    a.style.height    = '';
+    a.style.overflowY = '';
+  }
+}
+window.addEventListener('load', syncH);
+window.addEventListener('resize', syncH);
+
+/* ── B1 輪盤 ── */
+(function(){
+  var LABELS=["\u963f\u91cc\u5c71", "\u9435\u89c0\u97f3", "\u5305\u7a2e", "\u51cd\u9802", "\u9f8d\u4e95", "\u65e5\u6708\u6f6d"];
+  var COLORS=['#14501e','#1e6b2e','#288040','#359654','#46b06a','#64c882'];
+  var N=LABELS.length;
+  var SEG=Math.PI*2/N;
+  var cv=document.getElementById('wheel-cv');
+  if(!cv)return;
+  var ctx=cv.getContext('2d');
+  var angle=0,spinning=false;
+
+  /* canvas 解析度隨 CSS 渲染寬度同步（響應式） */
+  function resizeCanvas(){
+    var cssW=cv.getBoundingClientRect().width||cv.offsetWidth||300;
+    var dpr=window.devicePixelRatio||1;
+    var px=Math.round(cssW*dpr);
+    if(cv.width!==px||cv.height!==px){cv.width=px;cv.height=px;}
+  }
+
+  function easeOut(t){return 1-Math.pow(1-t,3);}
+
+  function draw(rot){
+    resizeCanvas();
+    var W=cv.width,H=cv.height,cx=W/2,cy=H/2;
+    /* 中心圓半徑佔 canvas 的 8%（不顯示文字）*/
+    var CENTER_R=W*0.08;
+    /* 外圍留邊，讓指針有空間 */
+    var R=W/2-W*0.04;
+    /* 文字繪製在半徑中段：從中心圓邊緣到外圓的中點 */
+    var TEXT_R=(CENTER_R+R)*0.54;
+    /* 字體大小：隨 R 等比，最小不小於 10px（邏輯像素） */
+    var dpr=window.devicePixelRatio||1;
+    var fontSize=Math.max(10*dpr, Math.round(R*0.13));
+
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){
+      var a0=rot+i*SEG,a1=a0+SEG;
+      /* 扇形填色 */
+      ctx.beginPath();ctx.moveTo(cx,cy);
+      ctx.arc(cx,cy,R,a0,a1);ctx.closePath();
+      ctx.fillStyle=COLORS[i%COLORS.length];ctx.fill();
+      ctx.strokeStyle='rgba(255,255,255,0.6)';ctx.lineWidth=W*0.005;ctx.stroke();
+
+      /* 文字：旋轉至扇形中心角，沿 x 軸繪製在 TEXT_R 處 */
+      ctx.save();
+      ctx.translate(cx,cy);
+      ctx.rotate(a0+SEG/2);          /* 旋轉到扇形中心 */
+      ctx.textAlign='center';         /* 水平置中 */
+      ctx.textBaseline='middle';      /* 垂直置中 */
+      ctx.fillStyle='#fff';
+      ctx.font='bold '+fontSize+'px "Microsoft JhengHei",Arial,sans-serif';
+      ctx.shadowColor='rgba(0,0,0,.55)';ctx.shadowBlur=fontSize*0.35;
+      ctx.fillText(LABELS[i], TEXT_R, 0);  /* x=TEXT_R（半徑中段），y=0（基線） */
+      ctx.restore();
+    }
+    /* 外環 */
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='#0d3a18';ctx.lineWidth=W*0.012;ctx.stroke();
+    /* 中心圓 */
+    ctx.beginPath();ctx.arc(cx,cy,CENTER_R,0,Math.PI*2);
+    ctx.fillStyle='#0a2e12';ctx.fill();
+    ctx.strokeStyle='#fff';ctx.lineWidth=W*0.005;ctx.stroke();
+    /* 指針（頂部，固定朝上） */
+    var pw=W*0.04,ph=W*0.055;
+    ctx.save();ctx.translate(cx, W*0.015);
+    ctx.beginPath();ctx.moveTo(-pw,0);ctx.lineTo(pw,0);ctx.lineTo(0,ph);
+    ctx.closePath();
+    ctx.fillStyle='#cc1f1f';
+    ctx.shadowColor='rgba(0,0,0,.5)';ctx.shadowBlur=W*0.015;ctx.fill();
+    ctx.restore();
+  }
+  draw(angle);
+
+  /* 視窗縮放時重繪 */
+  window.addEventListener('resize',function(){draw(angle);});
+
+  document.getElementById('btn-spin').addEventListener('click',function(){
+    if(spinning)return;
+    spinning=true;
+    var out=document.getElementById('spin-out');
+    out.textContent='轉動中…';
+    var extra=5*Math.PI*2+Math.random()*Math.PI*2;
+    var dur=3600,t0=performance.now(),a0=angle;
+    function frame(now){
+      var t=Math.min((now-t0)/dur,1);
+      angle=a0+extra*easeOut(t);draw(angle);
+      if(t<1){requestAnimationFrame(frame);}
+      else{
+        angle=(a0+extra)%(Math.PI*2);spinning=false;
+        var norm=((Math.PI*1.5-angle)%(Math.PI*2)+Math.PI*2)%(Math.PI*2);
+        var idx=Math.floor(norm/SEG)%N;
+        out.textContent='✅ '+LABELS[idx];
+      }
+    }
+    requestAnimationFrame(frame);
+  });
+}());
+</script>
+</body>
+</html>
